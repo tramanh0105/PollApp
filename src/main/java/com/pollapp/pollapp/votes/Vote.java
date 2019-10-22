@@ -1,13 +1,14 @@
 package com.pollapp.pollapp.votes;
 
 import com.pollapp.pollapp.choices.Choice;
+import com.pollapp.pollapp.dateAudit.DateAudit;
 import com.pollapp.pollapp.polls.Poll;
 import com.pollapp.pollapp.user.User;
 
 import javax.persistence.*;
 
 @Entity
-public class Vote {
+public class Vote extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
