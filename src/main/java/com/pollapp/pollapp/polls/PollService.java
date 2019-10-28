@@ -2,6 +2,7 @@ package com.pollapp.pollapp.polls;
 
 import com.pollapp.pollapp.choiceVoteCount.ChoiceVoteCount;
 import com.pollapp.pollapp.exception.BadRequestException;
+import com.pollapp.pollapp.payload.request.PollRequest;
 import com.pollapp.pollapp.payload.response.PagedResponse;
 import com.pollapp.pollapp.payload.response.PollResponse;
 import com.pollapp.pollapp.security.UserPrincipal;
@@ -18,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +63,15 @@ public class PollService {
 
         return new PagedResponse<>(pollResponses, polls.getNumber(),
                 polls.getSize(), polls.getTotalElements(), polls.getTotalPages(), polls.isLast());
+    }
+
+    public Poll createPoll(PollRequest pollRequest){
+        Poll poll = new Poll();
+        poll.setQuestion(pollRequest.getQuestion());
+        Instant now = Instant.now();
+        Instant expirationDateTime = now.plus(Duration.ofDays(pollRequest.getPollLength().getDays()))
+                .plus(Duration.ofHours(pollRequest.getPollLength().getHours()));
+        return pollRepo.save(poll);
     }
 
     private Map<Long, Long> getChoiceVoteCountMap(List<Long> pollIds) {

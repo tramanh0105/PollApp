@@ -14,6 +14,7 @@ public class PollRequest {
     @Valid
     private PollLength pollLength;
 
+
     public String getQuestion() {
         return question;
     }
