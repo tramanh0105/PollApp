@@ -1,6 +1,7 @@
 package com.pollapp.pollapp.polls;
 
 import com.pollapp.pollapp.payload.request.PollRequest;
+import com.pollapp.pollapp.payload.request.VoteRequest;
 import com.pollapp.pollapp.payload.response.PagedResponse;
 import com.pollapp.pollapp.payload.response.PollResponse;
 import com.pollapp.pollapp.security.CurrentUser;
@@ -42,5 +43,16 @@ public class PollController {
                 fromCurrentRequest().path("/{pollId}").
                 buildAndExpand(poll.getId()).toUri();
         return ResponseEntity.created(selfRefLink).body(poll);
+    }
+    @GetMapping("/{pollId}")
+    public PollResponse getPollById(@CurrentUser UserPrincipal currentUser, @PathVariable Long pollId){
+        return pollService.getPollById(pollId, currentUser);
+    }
+    @PostMapping("/{pollId}/votes")
+    @PreAuthorize("hasRole('USER')")
+    public PollResponse castVote(@CurrentUser UserPrincipal currentUser,
+                                 @PathVariable Long pollId,
+                                 @Valid @RequestBody VoteRequest voteRequest) {
+        return pollService.castVoteAndGetUpdatedPoll(pollId, voteRequest, currentUser);
     }
 }

@@ -21,6 +21,10 @@ public class Choice {
     public Choice() {
     }
 
+    public Choice(@NotNull @Size(max = 40) String text) {
+        this.text = text;
+    }
+
     public Choice(@NotNull @Size(max = 40) String text, Poll poll) {
         this.text = text;
         this.poll = poll;

@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class PollRequest {
     @NotBlank
@@ -13,7 +14,16 @@ public class PollRequest {
     @Size(min = 2,max = 6)
     @Valid
     private PollLength pollLength;
+    @Valid
+    private List<ChoiceRequest> choices;
 
+    public List<ChoiceRequest> getChoices() {
+        return choices;
+    }
+
+    public void setChoices(List<ChoiceRequest> choices) {
+        this.choices = choices;
+    }
 
     public String getQuestion() {
         return question;
