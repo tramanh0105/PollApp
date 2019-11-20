@@ -1,15 +1,17 @@
 package com.pollapp.pollapp.user;
 
+import com.pollapp.pollapp.dateAudit.DateAudit;
 import com.pollapp.pollapp.role.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class User {
+public class User extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long  id;
@@ -91,4 +93,6 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 }

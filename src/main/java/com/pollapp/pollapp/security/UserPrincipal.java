@@ -55,6 +55,14 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public Long getId() {
         return id;
     }
